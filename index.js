@@ -32,6 +32,9 @@ var listener = app.listen(process.env.PORT, function () {
 });
 
 app.get("/api/:date", function(req, res) {
+  if (!req.params.date) {
+    date = Date.now()
+  }
   if (/^[0-9]+$/.test(req.params.date)){
     date = new Date(parseInt(req.params.date));
   }
