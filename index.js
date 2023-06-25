@@ -31,4 +31,19 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
+app.get("/api/:date", function(req, res) {
+  if (/^[0-9]+$/.test(req.params.date)){
+    date = new Date(parseInt(req.params.date));
+  }
+  else if (!Date.parse(req.params.date)) {
+    date = "Invalid Date"
+    res.json({"error": date});
+    return
+  }
+  else {
+  date = new Date(req.params.date);
+  }
+  res.json({"utc": date.toUTCString(), "unix": date.getTime()});
+
+})
 
